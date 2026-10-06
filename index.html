@@ -1140,9 +1140,10 @@ function loadMap(j){
   if(j.title) $('#name').textContent=j.title;
 }
 async function startMap(){
+  fit();                                   // centre the face right away, before the board arrives
   if(CONFIG.mural){
     try{
-      const ctl=new AbortController(), t=setTimeout(()=>ctl.abort(),4000);
+      const ctl=new AbortController(), t=setTimeout(()=>ctl.abort(),3000);
       const r=await fetch(CONFIG.mural,{signal:ctl.signal}); clearTimeout(t);
       const j=await r.json();
       if(j&&j.nodes&&j.nodes.length) loadMap(j); else if(j&&j.error) console.warn('Mural:',j.error);
